@@ -1,0 +1,57 @@
+import requests
+import time
+
+def funkcja():
+    BTC = requests.get("https://bitbay.net/API/Public/BTCUSD/ticker.json")
+    ETH = requests.get("https://bitbay.net/API/Public/ETHUSD/ticker.json")
+    DASH = requests.get("https://bitbay.net/API/Public/DASHUSD/ticker.json")
+    LTC = requests.get("https://bitbay.net/API/Public/LTCUSD/ticker.json")
+    NEU = requests.get("https://bitbay.net/API/Public/NEUUSD/ticker.json")
+
+    return BTC.json(),ETH.json(),DASH.json(),LTC.json(),NEU.json()
+
+def max_min_difference(min,max):
+    return round((((max - min)*100 / min)),6)
+
+while(True):
+
+    data_BTC, data_ETH, data_DASH, data_LTC, data_NEU = funkcja()
+
+    min_BTC = (data_BTC['min'])
+    min_ETH = (data_ETH['min'])
+    min_DASH = (data_DASH['min'])
+    min_LTC = (data_LTC['min'])
+    min_NEU = (data_NEU['min'])
+
+    max_BTC = (data_BTC['max'])
+    max_ETH = (data_ETH['max'])
+    max_DASH = (data_DASH['max'])
+    max_LTC = (data_LTC['max'])
+    max_NEU = (data_NEU['max'])
+
+    BTC_dif = max_min_difference(min_BTC,max_BTC)
+    ETH_dif = max_min_difference(min_ETH, max_ETH)
+    DASH_dif = max_min_difference(min_DASH, max_DASH)
+    LTC_dif = max_min_difference(min_LTC, max_LTC)
+    NEU_dif = max_min_difference(min_NEU, max_NEU)
+
+    name = ["BTC","ETH","DASH","LTC","NEU"]
+    list_dif = [BTC_dif,ETH_dif,DASH_dif,LTC_dif,NEU_dif]
+    result = sorted(list_dif,reverse=True)
+
+    print(time.ctime())
+    for i in range(len(result)):
+        if result[i]>0:
+            for j in range(len(result)):
+                if result[i] == list_dif[j]:
+                    print(name[j],"+",result[i],"%")
+        elif result[i]==0:
+            for j in range(len(result)):
+                if result[i] == list_dif[j]:
+                    print(name[j],result[i],"%")
+        else:
+            for j in range(len(result)):
+                if result[i] == list_dif[j]:
+                    print(name[j],"-",result[i],"%")
+
+    time.sleep(300)
