@@ -1,0 +1,6 @@
+1. Prawdziwy wykres najbardziej przypomina ten z uśrednienia 100 symulacji, można to zauważyć gdy porówna się odchylenia standardowe.
+dla ETC:
+odchylenie standardowe dla 1 symulacji: 28.702698521351703
+odchylenie standardowe dla 100 symulacji:3.456494866009353
+odchylenie standardowe dla danych rzeczywistych: 10.99685921039884
+2. Jeśli weźmiemy większy okres czasu, dostaniemy dzięki temu więcej danych, przez co wykres powinien być bardziej podobny do realnego.
